@@ -1,0 +1,1 @@
+export { default as waitlist } from "./waitlist.controller";
