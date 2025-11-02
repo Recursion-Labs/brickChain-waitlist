@@ -1,7 +1,17 @@
 import { APIError } from "@/utils/APIError";
-import type { ErrorRequestHandler, NextFunction, Request, Response } from "express";
+import type {
+	ErrorRequestHandler,
+	NextFunction,
+	Request,
+	Response,
+} from "express";
 
-export const errorConverter: ErrorRequestHandler = (err, _req: Request, _res: Response, next) => {
+export const errorConverter: ErrorRequestHandler = (
+	err,
+	_req: Request,
+	_res: Response,
+	next,
+) => {
 	let error = err;
 	if (!(error instanceof APIError)) {
 		const statusCode = 400;
@@ -11,7 +21,12 @@ export const errorConverter: ErrorRequestHandler = (err, _req: Request, _res: Re
 	next(error);
 };
 
-export const errorHandler: ErrorRequestHandler = (err: APIError, _req: Request, res: Response, _next: NextFunction) => {
+export const errorHandler: ErrorRequestHandler = (
+	err: APIError,
+	_req: Request,
+	res: Response,
+	_next: NextFunction,
+) => {
 	const statusCode = err.statusCode || 500;
 	const message = err.message || statusCode;
 	const response = {

@@ -39,14 +39,19 @@ try {
 	logger.info("[SYSTEM] Environment configuration loaded.");
 } catch (error) {
 	if (error instanceof z.ZodError) {
-		logger.error("[SYSTEM] Environment configuration validation failed:", error.issues);
+		logger.error(
+			"[SYSTEM] Environment configuration validation failed:",
+			error.issues,
+		);
 		error.issues.forEach((err) => {
 			logger.error(`- ${err.path.join(".")}: ${err.message}`);
 		});
 	} else {
 		logger.error("Unknown error during environment config validation:", error);
 	}
-	throw new Error("Environment configuration validation failed. Check environment variables.");
+	throw new Error(
+		"Environment configuration validation failed. Check environment variables.",
+	);
 }
 
 export const { PORT, NODE_ENV, RESEND_API_KEY, JWT_SECRET } = envVars;

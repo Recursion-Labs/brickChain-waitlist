@@ -18,7 +18,11 @@ const catchAsync = <
 		next: NextFunction,
 	) => Promise<void>,
 ) => {
-	return (req: Request<P, ResBody, ReqBody, ReqQuery, Locals>, res: Response<ResBody, Locals>, next: NextFunction) => {
+	return (
+		req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
+		res: Response<ResBody, Locals>,
+		next: NextFunction,
+	) => {
 		Promise.resolve(fn(req, res, next)).catch(next);
 	};
 };
