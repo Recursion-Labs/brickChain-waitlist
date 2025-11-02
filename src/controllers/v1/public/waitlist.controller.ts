@@ -1,7 +1,7 @@
 import { db } from "@/config/database";
 import catchAsync from "@/handlers/async.handler";
 import { APIError } from "@/utils/APIError";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 
 const submitWaitlist = catchAsync(async (req: Request, res: Response) => {
     const { email } = req.body;
@@ -10,7 +10,7 @@ const submitWaitlist = catchAsync(async (req: Request, res: Response) => {
     }
     const check = await db.responses.findFirst({
         where: {
-            emails: email
+            email: email
          }
     })
     if (check) {
@@ -18,7 +18,7 @@ const submitWaitlist = catchAsync(async (req: Request, res: Response) => {
     }
     await db.responses.create({
         data: {
-            emails: email
+            email: email
         }
     })
     res.status(200).json({
