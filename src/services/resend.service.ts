@@ -5,20 +5,19 @@ import { logger } from "@/config/logger";
 
 const resendClient = new Resend(process.env.RESEND_API_KEY!);
 
-export async function sendOTP(email: string) {
+export async function sendWaitlistConfirmation(email: string) {
 	const templatePath = path.join(__dirname, "../templates/applicationReceived.html");
 	let html = "";
 	try {
-		const template = fs.readFileSync(templatePath, "utf8");
-		html = template;
+		html = fs.readFileSync(templatePath, "utf8");
 	} catch (err) {
 		logger.warn("Failed to load template, falling back to simple OTP HTML:", err);
 	}
 
 	await resendClient.emails.send({
-		from: "otps@techsolace.tech",
+		from: "ship@techsolace.tech",
 		to: email,
-		subject: "Your OTP Code",
+		subject: "Brickchain Waitlist Confirmation",
 		html,
 	});
 }
