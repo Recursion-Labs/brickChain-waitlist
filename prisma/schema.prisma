@@ -8,9 +8,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Admins {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Responses {
-  id String @id @default(auto()) @db.ObjectId @map("_id")
-  emails String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model contactUs {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  message   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
