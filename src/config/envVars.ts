@@ -36,10 +36,10 @@ let envVars: EnvConfig;
 
 try {
 	envVars = EnvConfigSchema.parse(rawConfig);
-	logger.info("Environment configuration loaded.");
+	logger.info("[SYSTEM] Environment configuration loaded.");
 } catch (error) {
 	if (error instanceof z.ZodError) {
-		logger.error("Environment configuration validation failed:", error.issues);
+		logger.error("[SYSTEM] Environment configuration validation failed:", error.issues);
 		error.issues.forEach((err) => {
 			logger.error(`- ${err.path.join(".")}: ${err.message}`);
 		});
