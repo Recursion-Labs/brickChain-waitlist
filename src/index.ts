@@ -1,9 +1,9 @@
 import "./config/moduleAlias";
 import app from "./app";
 import { logger } from "./config/logger";
+import envVars from "./config/envVars";
 
-const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-	logger.info(`[SERVER] backend is live on http://localhost:${PORT}`);
+app.listen(envVars.PORT, () => {
+	logger.info(`[SERVER] backend is live on http://localhost:${envVars.PORT}`);
 });

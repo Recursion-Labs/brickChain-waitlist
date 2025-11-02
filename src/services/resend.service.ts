@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import fs from "fs";
-import path from "path";
+import path from "node:path";
 import { logger } from "@/config/logger";
 
 const resendClient = new Resend(process.env.RESEND_API_KEY!);
