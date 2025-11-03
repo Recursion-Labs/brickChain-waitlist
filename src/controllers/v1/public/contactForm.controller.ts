@@ -1,5 +1,6 @@
 import { db } from "@/config/database";
 import catchAsync from "@/handlers/async.handler";
+import { sendConfirmationEmail } from "@/services/resend.service";
 import { APIError } from "@/utils/APIError";
 import { Request, Response } from "express";
 
@@ -17,6 +18,7 @@ const captureContactForm = catchAsync(async (req: Request, res: Response) => {
 				message: message,
 			},
 		});
+		await sendConfirmationEmail(email)
 		res.status(200).json({
 			status: "success",
 			message: "Contact form submitted successfully",
