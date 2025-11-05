@@ -4,22 +4,22 @@ import type { Request, Response } from "express";
 
 const getStats = catchAsync(async (req: Request, res: Response) => {
 	// Get waitlist stats
-	const waitlistTotal = await db.responses.count();
-	const waitlistToday = await db.responses.count({
+	const waitlistTotal = await db.waitlists.count();
+	const waitlistToday = await db.waitlists.count({
 		where: {
 			createdAt: {
 				gte: new Date(new Date().setHours(0, 0, 0, 0)),
 			},
 		},
 	});
-	const waitlistThisWeek = await db.responses.count({
+	const waitlistThisWeek = await db.waitlists.count({
 		where: {
 			createdAt: {
 				gte: new Date(new Date().setDate(new Date().getDate() - 7)),
 			},
 		},
 	});
-	const waitlistThisMonth = await db.responses.count({
+	const waitlistThisMonth = await db.waitlists.count({
 		where: {
 			createdAt: {
 				gte: new Date(new Date().setDate(new Date().getDate() - 30)),
@@ -79,22 +79,22 @@ const getStats = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getWaitlistStats = catchAsync(async (req: Request, res: Response) => {
-	const total = await db.responses.count();
-	const today = await db.responses.count({
+	const total = await db.waitlists.count();
+	const today = await db.waitlists.count({
 		where: {
 			createdAt: {
 				gte: new Date(new Date().setHours(0, 0, 0, 0)),
 			},
 		},
 	});
-	const thisWeek = await db.responses.count({
+	const thisWeek = await db.waitlists.count({
 		where: {
 			createdAt: {
 				gte: new Date(new Date().setDate(new Date().getDate() - 7)),
 			},
 		},
 	});
-	const thisMonth = await db.responses.count({
+	const thisMonth = await db.waitlists.count({
 		where: {
 			createdAt: {
 				gte: new Date(new Date().setDate(new Date().getDate() - 30)),

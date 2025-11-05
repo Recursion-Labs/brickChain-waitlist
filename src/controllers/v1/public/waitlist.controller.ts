@@ -17,7 +17,7 @@ const submitWaitlist = catchAsync(async (req: Request, res: Response) => {
 		throw new APIError(400, emailValidation.error || "Invalid email address");
 	}
 
-	const check = await db.responses.findFirst({
+	const check = await db.waitlists.findFirst({
 		where: {
 			email: email.toLowerCase().trim(),
 		},
@@ -25,7 +25,7 @@ const submitWaitlist = catchAsync(async (req: Request, res: Response) => {
 	if (check) {
 		throw new APIError(400, "Email already submitted to waitlist");
 	}
-	await db.responses.create({
+	await db.waitlists.create({
 		data: {
 			email: email.toLowerCase().trim(),
 		},
