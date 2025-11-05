@@ -1,17 +1,25 @@
 import { db } from "@/config/database";
 import catchAsync from "@/handlers/async.handler";
 import { sendWaitlistConfirmation } from "@/services/resend.service";
+import { validateEmail } from "@/utils/emailValidation";
 import { APIError } from "@/utils/APIError";
 import type { Request, Response } from "express";
 
 const submitWaitlist = catchAsync(async (req: Request, res: Response) => {
 	const { email } = req.body;
 	if (!email) {
-		throw new APIError(400, "Missing Required Fields");
+		throw new APIError(400, "Email is required");
 	}
+
+	// Validate email format and check for fake emails
+	const emailValidation = validateEmail(email);
+	if (!emailValidation.isValid) {
+		throw new APIError(400, emailValidation.error || "Invalid email address");
+	}
+
 	const check = await db.responses.findFirst({
 		where: {
-			email: email,
+			email: email.toLowerCase().trim(),
 		},
 	});
 	if (check) {
@@ -19,7 +27,7 @@ const submitWaitlist = catchAsync(async (req: Request, res: Response) => {
 	}
 	await db.responses.create({
 		data: {
-			email: email,
+			email: email.toLowerCase().trim(),
 		},
 	});
 	await sendWaitlistConfirmation(email);
