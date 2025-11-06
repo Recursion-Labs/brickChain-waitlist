@@ -7,6 +7,7 @@ const router = Router()
 router.use(authenticate)
 
 router.get("/contact/responses", v1Controllers.adminControllers.contactForm.contactFormsController.getAllContactForms)
+router.put("/contact/responses/:id", v1Controllers.adminControllers.contactForm.contactFormsController.updateContactStatus)
 
 router.get("/waitlist/responses", v1Controllers.adminControllers.waitlist.waitlistController.getResponses)
 router.get("/waitlist/responses/status/:status", v1Controllers.adminControllers.waitlist.waitlistController.fetchResponsesByStatus)
