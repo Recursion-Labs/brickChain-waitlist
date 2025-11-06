@@ -1,5 +1,6 @@
 import { Router } from "express";
 import v1Router from "./v1";
+import { isDbConnected } from "@/config/database";
 
 const router = Router();
 
@@ -8,6 +9,7 @@ router.get("/health", (req, res) => {
 		status: "ok",
 		message: "Server is running",
 		timestamp: new Date().toISOString(),
+		db: isDbConnected(),
 	});
 	return;
 });
