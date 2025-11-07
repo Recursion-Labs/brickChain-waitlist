@@ -21,6 +21,7 @@ const EnvConfigSchema = z.object({
 		.default("development"),
 
 	RESEND_API_KEY: z.string().min(1, { message: "RESEND_API_KEY is required" }),
+	DATABASE_URL: z.string().min(1, { message: "DATABASE_URL is required" }),
 	JWT_SECRET: z.string().min(1, { message: "JWT_SECRET is required" }),
 });
 export type EnvConfig = z.infer<typeof EnvConfigSchema>;
@@ -29,6 +30,7 @@ const rawConfig = {
 	PORT: process.env.PORT,
 	NODE_ENV: process.env.NODE_ENV,
 	RESEND_API_KEY: process.env.RESEND_API_KEY,
+	DATABASE_URL: process.env.DATABASE_URL,
 	JWT_SECRET: process.env.JWT_SECRET,
 };
 
@@ -54,6 +56,6 @@ try {
 	);
 }
 
-export const { PORT, NODE_ENV, RESEND_API_KEY, JWT_SECRET } = envVars;
+export const { PORT, NODE_ENV, RESEND_API_KEY, DATABASE_URL, JWT_SECRET } = envVars;
 
 export default envVars;
