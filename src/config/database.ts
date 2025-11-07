@@ -9,11 +9,12 @@ interface CustomNodeJsGlobal extends Global {
 declare const global: CustomNodeJsGlobal;
 
 // Create PrismaClient with logging enabled to help diagnose connection issues
-export const db =
-	global.prisma ||
-	new PrismaClient({
+if (!global.prisma) {
+	global.prisma = new PrismaClient({
 		log: ["info", "warn", "error"],
 	});
+}
+export const db = global.prisma;
 
 // Track whether Prisma has successfully connected so other parts of the app
 // can report DB health without attempting queries that would fail.
