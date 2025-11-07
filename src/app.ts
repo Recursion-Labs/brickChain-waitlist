@@ -15,11 +15,11 @@ const corsOptions = {
 
     // Allow localhost for development (only exact localhost origins)
     const localhostRegex = /^https?:\/\/localhost(:\d+)?$/;
-    if (origin && localhostRegex.test(origin)) return callback(null, true);
+    if (localhostRegex.test(origin)) return callback(null, true);
 
     // Allow ngrok tunnels (only valid ngrok.io subdomains)
     const ngrokRegex = /^https?:\/\/([a-z0-9-]+)\.ngrok\.io$/;
-    if (origin && ngrokRegex.test(origin)) return callback(null, true);
+    if (ngrokRegex.test(origin)) return callback(null, true);
 
     // Allow specific domains if needed
     const allowedOrigins = [
