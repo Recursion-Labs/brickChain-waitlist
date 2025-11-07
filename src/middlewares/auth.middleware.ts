@@ -9,11 +9,6 @@ export const authenticate = (
 	res: Response,
 	next: NextFunction,
 ) => {
-	// Skip authentication for preflight OPTIONS requests
-	if (req.method === 'OPTIONS') {
-		return next();
-	}
-
 	const authHeader = req.headers.authorization;
 
 	if (!authHeader || !authHeader.startsWith("Bearer ")) {
