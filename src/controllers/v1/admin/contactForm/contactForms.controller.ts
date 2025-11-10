@@ -27,12 +27,6 @@ const updateContactStatus = catchAsync(async (req: Request, res: Response) => {
 	if (!status) {
 		throw new APIError(400, "Status is required");
 	}
-
-	const validStatuses = Object.values(ContactStatus);
-	if (!validStatuses.includes(status.toUpperCase())) {
-		throw new APIError(400, `Invalid status. Must be one of: ${validStatuses.join(', ')}`);
-	}
-
 	const existingContact = await db.contactUs.findUnique({
 		where: {
 			id: id
